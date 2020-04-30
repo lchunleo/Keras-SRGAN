@@ -22,6 +22,14 @@ downscale_factor = 4
 # Remember to change image shape if you are having different size of images
 image_shape = (384,384,3)
 
+#improve memory
+import tensorflow as tf
+config = tf.compat.v1.ConfigProto()
+config.gpu_options.allow_growth = True
+config.gpu_options.per_process_gpu_memory_fraction = 2
+session = tf.compat.v1.Session(graph=tf.Graph(), config=config)
+
+
 # Combined network
 def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
     discriminator.trainable = False
